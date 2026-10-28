@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Donate to Sanmarga Geleyara Balaga, Ballari. Contribute financial support or donate physical items like school bags, notebooks, groceries, blankets, and medical aids.">
+  <title>Donate Money or Materials | Sanmarga Geleyara Balaga, Ballari</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Visual Cards with AI Artwork & Animations */
+    .donate-ways-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.6rem;
+      margin-bottom: 3.5rem;
+    }
+    .donate-way-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 1.35rem;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s ease, box-shadow .3s ease;
+      position: relative;
+    }
+    .donate-way-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+    }
+    .donate-way-media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #0d2822;
+    }
+    .donate-way-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .donate-way-card:hover .donate-way-media img {
+      transform: scale(1.06);
+    }
+    .donate-way-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(14, 56, 49, 0.9);
+      backdrop-filter: blur(6px);
+      color: #ffd27b;
+      font-size: .74rem;
+      font-weight: 850;
+      padding: .35rem .75rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .donate-way-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .donate-way-body h3 {
+      font-size: 1.22rem;
+      margin: 0 0 .55rem;
+      color: var(--ink);
+    }
+    .donate-way-body p {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 1.2rem;
+      flex-grow: 1;
+    }
+    .donate-way-btn {
+      align-self: flex-start;
+      padding: .45rem .95rem;
+      border-radius: 999px;
+      font-size: .84rem;
+      font-weight: 800;
+      background: var(--soft);
+      color: var(--leaf);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .donate-way-card:hover .donate-way-btn {
+      background: var(--saffron);
+      color: #1a2a22;
+      border-color: var(--saffron);
+    }
+
+    /* Floating Micro-Animation on Visual Badges */
+    @keyframes floatPill {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    .donate-way-badge {
+      animation: floatPill 3.5s ease-in-out infinite;
+    }
+
+    /* Comprehensive Donation Form Box */
+    .donation-form-wrapper {
+      max-width: 840px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 1.6rem;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .donation-form-header {
+      padding: 2.2rem 2.4rem 1.8rem;
+      background: linear-gradient(135deg, #0e3831, #1a5246);
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+    }
+    .donation-form-header h2 {
+      color: #ffffff;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      margin: 0 0 .5rem;
+    }
+    .donation-form-header p {
+      color: #d3ebe0;
+      font-size: 1.02rem;
+      margin: 0 auto;
+      max-width: 58ch;
+    }
+
+    /* Segmented Donation Type Toggle */
+    .donation-type-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: .6rem;
+      background: var(--soft);
+      gap: .6rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .donation-type-btn {
+      padding: 1.05rem 1.2rem;
+      border-radius: 1rem;
+      border: 2px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 850;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      transition: all .25s ease;
+    }
+    .donation-type-btn:hover {
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .donation-type-btn.active {
+      background: var(--paper);
+      color: var(--leaf);
+      border-color: var(--leaf);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    }
+    [data-theme="dark"] .donation-type-btn.active {
+      border-color: var(--saffron);
+      color: var(--saffron);
+    }
+
+    .donation-form-body {
+      padding: clamp(1.5rem, 5vw, 2.8rem);
+    }
+
+    /* Preset amount chips */
+    .amount-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .65rem;
+      margin-top: .5rem;
+    }
+    .amount-chip {
+      padding: .6rem 1.15rem;
+      border-radius: .7rem;
+      border: 1px solid var(--line);
+      background: var(--soft);
+      color: var(--ink);
+      font-size: .95rem;
+      font-weight: 850;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .amount-chip:hover {
+      border-color: var(--leaf);
+      background: var(--paper);
+    }
+    .amount-chip.active {
+      background: var(--forest-dark);
+      color: #ffffff;
+      border-color: var(--forest-dark);
+    }
+    [data-theme="dark"] .amount-chip.active {
+      background: var(--saffron);
+      color: #1a2a22;
+      border-color: var(--saffron);
+    }
+
+    /* Materials Checklist Grid */
+    .materials-checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: .75rem;
+      margin-top: .6rem;
+    }
+    .material-item-label {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      padding: .85rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: .8rem;
+      background: var(--soft);
+      cursor: pointer;
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--ink);
+      transition: all .2s ease;
+    }
+    .material-item-label:hover {
+      background: var(--paper);
+      border-color: var(--leaf);
+    }
+    .material-item-label input[type="checkbox"] {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: var(--leaf);
+      cursor: pointer;
+    }
+
+    /* Animated Submit Button */
+    .donate-submit-btn {
+      width: 100%;
+      padding: 1.1rem 1.8rem;
+      font-size: 1.12rem;
+      font-weight: 900;
+      border-radius: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, #108060 0%, #165646 100%);
+      box-shadow: 0 8px 24px rgba(16, 128, 96, 0.28);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+    }
+    .donate-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(16, 128, 96, 0.38);
+    }
+
+    /* Celebration Modal */
+    .celebrate-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 18, 28, 0.82);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: none;
+      place-items: center;
+      padding: 1.5rem;
+      animation: modalFadeIn .25s ease forwards;
+    }
+    .celebrate-modal-backdrop.open {
+      display: grid;
+    }
+    .celebrate-modal-card {
+      background: var(--paper);
+      border-radius: 1.6rem;
+      max-width: 540px;
+      width: 100%;
+      padding: 2.5rem 2.2rem;
+      text-align: center;
+      border: 1px solid var(--line);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+      position: relative;
+      animation: modalSlideUp .3s ease forwards;
+    }
+    .celebrate-icon {
+      width: 4.8rem;
+      height: 4.8rem;
+      margin: 0 auto 1.2rem;
+      border-radius: 50%;
+      background: #e6f7ef;
+      color: #108060;
+      font-size: 2.4rem;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 20px rgba(16, 128, 96, 0.18);
+    }
+    .pledge-id-badge {
+      display: inline-block;
+      padding: .4rem .95rem;
+      background: var(--soft);
+      border: 1px dashed var(--leaf);
+      border-radius: 999px;
+      font-family: monospace;
+      font-size: 1.05rem;
+      font-weight: 850;
+      color: var(--leaf);
+      margin: .6rem 0 1.2rem;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body data-page="donate">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header id="siteHeader"></header>
+
+  <main id="main">
+    <!-- PAGE HERO WITH DYNAMIC SLIDING AI ARTWORK BACKGROUND -->
+    <section class="page-hero hero-has-slider">
+      <div class="hero-slider-bg" aria-hidden="true">
+        <div class="hero-slide-bg active" style="background-image: url('images/donate-money-impact.jpg');"></div>
+        <div class="hero-slide-bg" style="background-image: url('images/donate-books-materials.jpg');"></div>
+        <div class="hero-slide-bg" style="background-image: url('images/donate-food-clothes.jpg');"></div>
+      </div>
+      <div class="hero-slider-overlay" aria-hidden="true"></div>
+
+      <div class="container hero-content-relative">
+        <div class="crumb">
+          <a href="index.html" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
+          <span>/</span>
+          <span data-en="Donate" data-kn="ದೇಣಿಗೆ ನೀಡಿ">Donate</span>
+        </div>
+        <p class="eyebrow" data-en="Support Our Causes" data-kn="ನಮ್ಮ ಸಾಮಾಜಿಕ ಕಾರ್ಯಕ್ಕೆ ಬೆಂಬಲಿಸಿ">Support Our Causes</p>
+        <h1 data-en="Donate Money or Everyday Essentials." data-kn="ಹಣ ಅಥವಾ ಅಗತ್ಯ ಸಾಮಗ್ರಿಗಳನ್ನು ಕೊಡುಗೆಯಾಗಿ ನೀಡಿ.">Donate Money or Everyday Essentials.</h1>
+        <p class="lead" data-en="Every kind gesture counts. You can support our community initiatives financially or pledge physical items such as school supplies, food grains, blankets, and eye-care medical aids for Ballari families." data-kn="ಪ್ರತಿಯೊಂದು ಸಣ್ಣ ಸಹಾಯವೂ ಮಹತ್ವದ್ದು. ನೀವು ಆರ್ಥಿಕವಾಗಿ ಬೆಂಬಲ ನೀಡಬಹುದು ಅಥವಾ ಶಾಲಾ ಬ್ಯಾಗ್, ನೋಟ್‌ಬುಕ್, ದಿನಸಿ ಸಾಮಗ್ರಿಗಳು, ಹೊದಿಕೆಗಳು ಹಾಗೂ ನೇತ್ರ ಶಿಬಿರದ ಪರಿಕರಗಳನ್ನು ಕೊಡುಗೆಯಾಗಿ ನೀಡಬಹುದು.">Every kind gesture counts. You can support our community initiatives financially or pledge physical items such as school supplies, food grains, blankets, and eye-care medical aids for Ballari families.</p>
+        
+        <div class="hero-actions" style="margin-top: 1.6rem; display:flex; flex-wrap:wrap; gap:1rem; align-items:center;">
+          <a class="button button--primary" href="tel:9916544848" data-en="Donate via UPI / Call: 9916544848 📞" data-kn="UPI / ಕರೆ ಮೂಲಕ ದೇಣಿಗೆ: 9916544848 📞">Donate via UPI / Call: 9916544848 📞</a>
+          <a class="button button--light" href="#donation-form-section" data-en="Pledge Form ↓" data-kn="ನೋಂದಣಿ ಫಾರ್ಮ್ ↓">Pledge Form ↓</a>
+          <a class="button button--outline" href="moments.html" style="color:white; border-color:rgba(255,255,255,0.4);" data-en="See Our Work 📸" data-kn="ನಮ್ಮ ಕಾರ್ಯ ನೋಡಿ 📸">See Our Work 📸</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 WAYS TO DONATE: AI ARTWORK SECTION WITH ANIMATIONS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-top" style="margin-bottom: 2.2rem;">
+          <div>
+            <p class="eyebrow" data-en="Ways to give" data-kn="ಕೊಡುಗೆ ನೀಡುವ ವಿಧಾನಗಳು">Ways to give</p>
+            <h2 data-en="How Your Generosity Changes Lives in Ballari" data-kn="ನಿಮ್ಮ ಕೊಡುಗೆ ಬಳ್ಳಾರಿಯ ಜನರ ಜೀವನವನ್ನು ಹೇಗೆ ಬದಲಿಸುತ್ತದೆ">How Your Generosity Changes Lives in Ballari</h2>
+            <p class="lead" data-en="We believe in complete transparency and purposeful giving. Choose how you would like to participate." data-kn="ನಾವು ಸಂಪೂರ್ಣ ಪಾರದರ್ಶಕತೆ ಮತ್ತು ಉದ್ದೇಶಪೂರ್ವಕ ಸೇವೆಯಲ್ಲಿ ನಂಬಿಕೆ ಇಟ್ಟಿದ್ದೇವೆ. ನೀವು ಹೇಗೆ ಭಾಗವಹಿಸಲು ಬಯಸುತ್ತೀರಿ ಎಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ.">We believe in complete transparency and purposeful giving. Choose how you would like to participate.</p>
+          </div>
+        </div>
+
+        <div class="donate-ways-grid">
+          <!-- Card 1: Money -->
+          <article class="donate-way-card">
+            <div class="donate-way-media">
+              <img src="images/donate-money-impact.jpg" alt="Donating money illustration for education and healthcare" loading="lazy">
+              <span class="donate-way-badge" data-en="Financial Aid" data-kn="ಆರ್ಥಿಕ ನೆರವು">Financial Aid</span>
+            </div>
+            <div class="donate-way-body">
+              <h3 data-en="Financial Contributions" data-kn="ಆರ್ಥಿಕ ದೇಣಿಗೆ">Financial Contributions</h3>
+              <p data-en="Directly finances free eye-checkup surgeries, summer drinking water kiosks, study material procurement, and emergency family relief across Ballari." data-kn="ಉಚಿತ ನೇತ್ರ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗಳು, ಬೇಸಿಗೆಯ ಕುಡಿಯುವ ನೀರಿನ ಅರವಟ್ಟಿಗೆ, ಅಧ್ಯಯನ ಸಾಮಗ್ರಿಗಳ ಖರೀದಿ ಮತ್ತು ಸಂಕಷ್ಟದ ಕುಟುಂಬಗಳ ತುರ್ತು ನೆರವಿಗೆ ಹಣಕಾಸಿನ ನೆರವು ನೀಡುತ್ತದೆ.">Directly finances free eye-checkup surgeries, summer drinking water kiosks, study material procurement, and emergency family relief across Ballari.</p>
+              <button class="donate-way-btn" type="button" onclick="selectDonationType('money')" data-en="Pledge Money →" data-kn="ಹಣ ದೇಣಿಗೆ ನೀಡಿ →">Pledge Money →</button>
+            </div>
+          </article>
+
+          <!-- Card 2: Books & Study Materials -->
+          <article class="donate-way-card">
+            <div class="donate-way-media">
+              <img src="images/donate-books-materials.jpg" alt="Donating school books and stationery illustration" loading="lazy">
+              <span class="donate-way-badge" data-en="Books & Materials" data-kn="ಪುಸ್ತಕ & ಸಾಮಗ್ರಿಗಳು">Books & Materials</span>
+            </div>
+            <div class="donate-way-body">
+              <h3 data-en="Educational Supplies" data-kn="ಶೈಕ್ಷಣಿಕ ಸಾಮಗ್ರಿಗಳು">Educational Supplies</h3>
+              <p data-en="Donate new school backpacks, notebooks, geometry instruments, and exam preparation guides directly to rural government school students." data-kn="ಗ್ರಾಮೀಣ ಸರ್ಕಾರಿ ಶಾಲಾ ಮಕ್ಕಳಿಗೆ ಹೊಸ ಶಾಲಾ ಬ್ಯಾಗ್, ನೋಟ್‌ಬುಕ್, ಜ್ಯಾಮಿತಿ ಪೆಟ್ಟಿಗೆ ಹಾಗೂ ಸ್ಪರ್ಧಾತ್ಮಕ ಪರೀಕ್ಷಾ ಮಾರ್ಗದರ್ಶಿ ಪುಸ್ತಕಗಳನ್ನು ಕೊಡುಗೆಯಾಗಿ ನೀಡಿ.">Donate new school backpacks, notebooks, geometry instruments, and exam preparation guides directly to rural government school students.</p>
+              <button class="donate-way-btn" type="button" onclick="selectDonationType('materials')" data-en="Donate Materials →" data-kn="ಸಾಮಗ್ರಿಗಳನ್ನು ನೀಡಿ →">Donate Materials →</button>
+            </div>
+          </article>
+
+          <!-- Card 3: Food & Clothes -->
+          <article class="donate-way-card">
+            <div class="donate-way-media">
+              <img src="images/donate-food-clothes.jpg" alt="Donating food ration and blankets illustration" loading="lazy">
+              <span class="donate-way-badge" data-en="Relief & Care" data-kn="ಆಹಾರ & ಬಟ್ಟೆ">Relief & Care</span>
+            </div>
+            <div class="donate-way-body">
+              <h3 data-en="Food Grains & Blankets" data-kn="ದಿನಸಿ & ಹೊದಿಕೆಗಳು">Food Grains & Blankets</h3>
+              <p data-en="Provide sealed dry ration kits (rice, dal, oil), warm winter blankets, and new clothing to shelter homes, daily-wage laborers, and rural elders." data-kn="ಅಕ್ಕಿ, ಬೇಳೆ, ಅಡುಗೆ ಎಣ್ಣೆ ಒಳಗೊಂಡ ದಿನಸಿ ಕಿಟ್‌ಗಳು, ಚಳಿಗಾಲದ ಬೆಚ್ಚನೆಯ ಹೊದಿಕೆಗಳು ಹಾಗೂ ಹೊಸ ಉಡುಪುಗಳನ್ನು ನಿರ್ಗತಿಕ ಹಿರಿಯರು ಮತ್ತು ಕುಟುಂಬಗಳಿಗೆ ಒದಗಿಸಿ.">Provide sealed dry ration kits (rice, dal, oil), warm winter blankets, and new clothing to shelter homes, daily-wage laborers, and rural elders.</p>
+              <button class="donate-way-btn" type="button" onclick="selectDonationType('materials')" data-en="Donate Essentials →" data-kn="ಅಗತ್ಯ ವಸ್ತುಗಳನ್ನು ನೀಡಿ →">Donate Essentials →</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEDICATED DONATION FORM SECTION -->
+    <section class="section section--soft" id="donation-form-section">
+      <div class="container">
+        <!-- DIRECT PHONE / UPI DONATION BOX -->
+        <div class="direct-donation-box" style="background: linear-gradient(135deg, #092e24 0%, #134638 100%); border-radius: 1.4rem; padding: 2rem 2.2rem; color: #ffffff; margin-bottom: 2.4rem; border: 1px solid rgba(255,255,255,0.18); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; box-shadow: 0 14px 35px rgba(9, 46, 36, 0.28);">
+          <div>
+            <span style="display:inline-block; font-size:.78rem; font-weight:850; text-transform:uppercase; letter-spacing:.08em; background:rgba(246,179,61,0.22); color:#ffd27b; padding:.25rem .75rem; border-radius:999px; margin-bottom:.5rem;" data-en="Direct UPI / PhonePe / GPay Donation" data-kn="ನೇರ UPI / PhonePe / GPay ದೇಣಿಗೆ">Direct UPI / PhonePe / GPay Donation</span>
+            <h3 style="color:#ffffff; margin:0 0 .4rem 0; font-size:1.45rem; line-height:1.3;" data-en="If you want to donate, please transfer to or contact:" data-kn="ನೀವು ದೇಣಿಗೆ ನೀಡಲು ಬಯಸಿದರೆ, ದಯವಿಟ್ಟು ಈ ಸಂಖ್ಯೆಗೆ ವರ್ಗಾಯಿಸಿ ಅಥವಾ ಸಂಪರ್ಕಿಸಿ:">If you want to donate, please transfer to or contact:</h3>
+            <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap; margin-top:.5rem;">
+              <a href="tel:9916544848" style="font-size:2.2rem; font-weight:900; letter-spacing:.05em; color:#ffd27b; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;">
+                <span>📞</span> 9916544848
+              </a>
+              <span style="font-size:.9rem; color:#d2ebd9; background:rgba(255,255,255,0.12); padding:.4rem .85rem; border-radius:.6rem;" data-en="GPay • PhonePe • Paytm • Direct Call" data-kn="ಗೂಗಲ್ ಪೇ • ಫೋನ್ ಪೇ • ಪೇಟಿಎಂ • ನೇರ ಕರೆ">GPay • PhonePe • Paytm • Direct Call</span>
+            </div>
+            <p style="margin:.6rem 0 0; font-size:.9rem; color:#c7e6d7;" data-en="Scan or send any contribution directly to 9916544848. Official acknowledgment receipt will be issued." data-kn="ಯಾವುದೇ ದೇಣಿಗೆಯನ್ನು ನೇರವಾಗಿ 9916544848 ಸಂಖ್ಯೆಗೆ ಕಳುಹಿಸಬಹುದು. ಅಧಿಕೃತ ರಶೀದಿ ನೀಡಲಾಗುತ್ತದೆ.">Scan or send any contribution directly to 9916544848. Official acknowledgment receipt will be issued.</p>
+          </div>
+          <div style="display:flex; gap:.85rem; flex-wrap:wrap;">
+            <a href="tel:9916544848" class="button button--primary" style="font-size:1.05rem; padding:.85rem 1.6rem;" data-en="Call / Pay Now 📞" data-kn="ಈಗಲೇ ಕರೆ ಮಾಡಿ 📞">Call / Pay Now 📞</a>
+            <button type="button" class="button button--light" onclick="navigator.clipboard.writeText('9916544848'); alert('Phone number 9916544848 copied to clipboard!');" style="font-size:1.05rem; padding:.85rem 1.4rem;" data-en="📋 Copy 9916544848" data-kn="📋 ಸಂಖ್ಯೆ ನಕಲಿಸಿ">📋 Copy 9916544848</button>
+          </div>
+        </div>
+
+        <div class="donation-form-wrapper">
+          
+          <div class="donation-form-header">
+            <h2 data-en="Donation Pledge Form" data-kn="ದೇಣಿಗೆ ನೋಂದಣಿ ಫಾರ್ಮ್">Donation Pledge Form</h2>
+            <p data-en="Choose to donate money or physical materials below. Our volunteer team will acknowledge your pledge and provide an official receipt or arrange pickup." data-kn="ಹಣ ಅಥವಾ ಭೌತಿಕ ಸಾಮಗ್ರಿಗಳನ್ನು ದೇಣಿಗೆ ನೀಡಲು ಕೆಳಗಿನ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ. ನಮ್ಮ ತಂಡವು ಅಧಿಕೃತ ರಶೀದಿ ಅಥವಾ ಸಾಮಗ್ರಿ ಸ್ವೀಕಾರಕ್ಕೆ ನೆರವಾಗುತ್ತದೆ.">Choose to donate money or physical materials below. Our volunteer team will acknowledge your pledge and provide an official receipt or arrange pickup.</p>
+          </div>
+
+          <!-- Segmented Type Selector -->
+          <div class="donation-type-nav">
+            <button class="donation-type-btn active" id="typeMoneyBtn" type="button" onclick="selectDonationType('money')">
+              <span>💵</span> <span data-en="Donate Money" data-kn="ಹಣ ದೇಣಿಗೆ">Donate Money</span>
+            </button>
+            <button class="donation-type-btn" id="typeMaterialsBtn" type="button" onclick="selectDonationType('materials')">
+              <span>📦</span> <span data-en="Donate Materials / Other Things" data-kn="ಸಾಮಗ್ರಿ / ಇತರ ವಸ್ತುಗಳು">Donate Materials / Other Things</span>
+            </button>
+          </div>
+
+          <div class="donation-form-body">
+            <form id="donationForm" novalidate>
+              
+              <!-- SECTION A: MONEY FIELDS -->
+              <div id="moneyFields">
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="donationAmount" data-en="Donation Amount (₹) *" data-kn="ದೇಣಿಗೆ ಮೊತ್ತ (₹) *">Donation Amount (₹) *</label>
+                  <input type="number" id="donationAmount" name="amount" placeholder="Enter amount (e.g. 1000)" min="1" required>
+                  <p style="font-size: .88rem; color: var(--muted); margin-top: .45rem;" data-en="If you want to donate directly via PhonePe / Google Pay / UPI, transfer to <strong>9916544848</strong>." data-kn="ನೇರವಾಗಿ PhonePe / Google Pay / UPI ಮೂಲಕ ದೇಣಿಗೆ ನೀಡಲು <strong>9916544848</strong> ಸಂಖ್ಯೆಗೆ ಕಳುಹಿಸಿ.">If you want to donate directly via PhonePe / Google Pay / UPI, transfer to <strong>9916544848</strong>.</p>
+                </div>
+
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="moneyCause" data-en="Preferred Cause / Purpose" data-kn="ಉದ್ದೇಶ / ಕ್ಷೇತ್ರ">Preferred Cause / Purpose</label>
+                  <select id="moneyCause" name="cause" style="width:100%; padding:.8rem .9rem; border:1px solid var(--line); border-radius:.65rem; background:var(--soft); font-family:inherit;">
+                    <option value="General Community Welfare" data-en="General Community Welfare (Ballari)" data-kn="ಸಾರ್ವಜನಿಕ ಸಮುದಾಯ ಸೇವೆ (ಬಳ್ಳಾರಿ)">General Community Welfare (Ballari)</option>
+                    <option value="Education & SSLC Workshops" data-en="Education & SSLC Guidance Workshops" data-kn="ಶಿಕ್ಷಣ & SSLC ಪರೀಕ್ಷಾ ಮಾರ್ಗದರ್ಶನ">Education & SSLC Guidance Workshops</option>
+                    <option value="Free Eye-Care & Health Camps" data-en="Free Eye-Care & Health Checkup Camps" data-kn="ಉಚಿತ ನೇತ್ರ & ಆರೋಗ್ಯ ಶಿಬಿರಗಳು">Free Eye-Care & Health Checkup Camps</option>
+                    <option value="Water Conservation & Summer Cool Water" data-en="Water Conservation & Summer Cool Water" data-kn="ಜಲ ಸಂರಕ್ಷಣೆ & ಬೇಸಿಗೆ ಕುಡಿಯುವ ನೀರಿನ ಸೇವೆ">Water Conservation & Summer Cool Water</option>
+                    <option value="Environmental Action & Tree Plantation" data-en="Environmental Action & Tree Plantation" data-kn="ಪರಿಸರ ಸಂರಕ್ಷಣೆ & ಗಿಡ ನೆಡುವ ಅಭಿಯಾನ">Environmental Action & Tree Plantation</option>
+                  </select>
+                </div>
+
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="paymentMode" data-en="Preferred Mode of Payment" data-kn="ಪಾವತಿ ವಿಧಾನ">Preferred Mode of Payment</label>
+                  <select id="paymentMode" name="mode" style="width:100%; padding:.8rem .9rem; border:1px solid var(--line); border-radius:.65rem; background:var(--soft); font-family:inherit;">
+                    <option value="UPI (GPay / PhonePe / Paytm)" data-en="UPI (Google Pay / PhonePe / Paytm / BHIM)" data-kn="UPI (ಗೂಗಲ್ ಪೇ / ಫೋನ್ ಪೇ / ಪೇಟಿಎಂ)">UPI (Google Pay / PhonePe / Paytm / BHIM)</option>
+                    <option value="Direct Bank Transfer (NEFT/IMPS)" data-en="Direct Bank Transfer (NEFT / IMPS)" data-kn="ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ (NEFT / IMPS)">Direct Bank Transfer (NEFT / IMPS)</option>
+                    <option value="In-Person Cash Receipt with Volunteer" data-en="In-Person Cash Receipt in Ballari" data-kn="ಬಳ್ಳಾರಿಯಲ್ಲಿ ನೇರ ನಗದು ರಶೀದಿ">In-Person Cash Receipt in Ballari</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- SECTION B: MATERIALS FIELDS (Shown when Materials is chosen) -->
+              <div id="materialsFields" style="display: none;">
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label data-en="Select Item Categories to Donate *" data-kn="ದೇಣಿಗೆ ನೀಡುವ ವಸ್ತುಗಳ ವರ್ಗಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ *">Select Item Categories to Donate *</label>
+                  <div class="materials-checkbox-grid">
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="School Bags & Notebooks" checked>
+                      <span data-en="🎒 School Bags & Books" data-kn="🎒 ಶಾಲಾ ಬ್ಯಾಗ್ & ಪುಸ್ತಕ">🎒 School Bags & Books</span>
+                    </label>
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="Food Grains & Ration Kits">
+                      <span data-en="🥫 Food Grains & Ration" data-kn="🥫 ದಿನಸಿ & ಆಹಾರ ಪದಾರ್ಥ">🥫 Food Grains & Ration</span>
+                    </label>
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="Blankets & Clothes">
+                      <span data-en="👕 Clothes & Blankets" data-kn="👕 ಬಟ್ಟೆ & ಬೆಚ್ಚನೆಯ ಹೊದಿಕೆ">👕 Clothes & Blankets</span>
+                    </label>
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="Spectacles & Medical Aid">
+                      <span data-en="🩺 Medical & Eye Aid" data-kn="🩺 ವೈದ್ಯಕೀಯ & ನೇತ್ರ ಪರಿಕರ">🩺 Medical & Eye Aid</span>
+                    </label>
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="Tree Saplings & Gardening">
+                      <span data-en="🌳 Tree Saplings" data-kn="🌳 ಗಿಡಗಳು & ಸಸಿಗಳು">🌳 Tree Saplings</span>
+                    </label>
+                    <label class="material-item-label">
+                      <input type="checkbox" name="materialCat" value="Other Community Supplies">
+                      <span data-en="💡 Other Useful Things" data-kn="💡 ಇತರ ಅಗತ್ಯ ವಸ್ತುಗಳು">💡 Other Useful Things</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="materialDetails" data-en="Items Description & Estimated Quantity *" data-kn="ವಸ್ತುಗಳ ವಿವರ ಮತ್ತು ಅಂದಾಜು ಪ್ರಮಾಣ *">Items Description & Estimated Quantity *</label>
+                  <textarea id="materialDetails" name="materialDetails" placeholder="e.g. 50 long-notebooks and 20 school bags, or 10 warm blankets, etc." style="min-height: 5.5rem;"></textarea>
+                </div>
+
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="handoverPref" data-en="Handover / Delivery Preference" data-kn="ವಸ್ತು ಹಸ್ತಾಂತರ ವಿಧಾನ">Handover / Delivery Preference</label>
+                  <select id="handoverPref" name="handover" style="width:100%; padding:.8rem .9rem; border:1px solid var(--line); border-radius:.65rem; background:var(--soft); font-family:inherit;">
+                    <option value="I will drop off at Ballari coordinator center" data-en="I will drop off at Ballari Balaga center" data-kn="ನಾನೇ ಬಳ್ಳಾರಿ ಬಳಗದ ಕೇಂದ್ರಕ್ಕೆ ತಲುಪಿಸುತ್ತೇನೆ">I will drop off at Ballari Balaga center</option>
+                    <option value="Volunteer pickup required in Ballari district" data-en="Please coordinate volunteer pickup in Ballari district" data-kn="ಬಳ್ಳಾರಿ ಜಿಲ್ಲೆಯಲ್ಲಿ ಸ್ವಯಂಸೇವಕರು ಸಂಗ್ರಹಿಸಲು ಕೋರುತ್ತೇನೆ">Please coordinate volunteer pickup in Ballari district</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- SECTION C: DONOR CONTACT DETAILS -->
+              <div style="border-top: 1px solid var(--line); padding-top: 1.3rem; margin-top: .5rem;">
+                <p class="eyebrow" style="margin-bottom: .8rem;" data-en="Donor Information" data-kn="ಕೊಡುಗೆದಾರರ ಮಾಹಿತಿ">Donor Information</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.1rem;">
+                  <div class="field">
+                    <label for="donorName" data-en="Full Name *" data-kn="ಪೂರ್ಣ ಹೆಸರು *">Full Name *</label>
+                    <input type="text" id="donorName" name="name" placeholder="Your Name" required>
+                  </div>
+                  <div class="field">
+                    <label for="donorPhone" data-en="Phone / WhatsApp Number *" data-kn="ಮೊಬೈಲ್ / ವಾಟ್ಸಾಪ್ ಸಂಖ್ಯೆ *">Phone / WhatsApp Number *</label>
+                    <input type="tel" id="donorPhone" name="phone" placeholder="+91 98765 43210" required>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.1rem;">
+                  <div class="field">
+                    <label for="donorCity" data-en="City / Locality" data-kn="ಊರು / ಪ್ರದೇಶ">City / Locality</label>
+                    <input type="text" id="donorCity" name="city" placeholder="e.g. Ballari, Sandur, Hospete">
+                  </div>
+                  <div class="field">
+                    <label for="donorEmail" data-en="Email Address (Optional)" data-kn="ಇಮೇಲ್ ವಿಳಾಸ (ಐಚ್ಛಿಕ)">Email Address (Optional)</label>
+                    <input type="email" id="donorEmail" name="email" placeholder="name@example.com">
+                  </div>
+                </div>
+
+                <div class="field" style="margin-bottom: 1.3rem;">
+                  <label for="donorNotes" data-en="Dedication or Note (Optional)" data-kn="ಸಂದೇಶ ಅಥವಾ ಅರ್ಪಣೆ (ಐಚ್ಛಿಕ)">Dedication or Note (Optional)</label>
+                  <textarea id="donorNotes" name="notes" placeholder="e.g. In memory of a loved one, or on the occasion of a family celebration..." style="min-height: 4.5rem;"></textarea>
+                </div>
+              </div>
+
+              <!-- Submit & Status -->
+              <p class="form-status" id="donationStatus"></p>
+              <button class="donate-submit-btn" type="submit" id="submitPledgeBtn">
+                <span>❤️</span>
+                <span data-en="Submit Donation Pledge" data-kn="ದೇಣಿಗೆ ನೋಂದಾಯಿಸಿ">Submit Donation Pledge</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUCCESS CELEBRATION MODAL -->
+    <div class="celebrate-modal-backdrop" id="celebrateModal" role="dialog" aria-modal="true" aria-labelledby="celebrateTitle">
+      <div class="celebrate-modal-card">
+        <div class="celebrate-icon">🎉</div>
+        <h2 id="celebrateTitle" style="color:var(--ink); margin:0 0 .5rem; font-size:1.7rem;" data-en="Thank You for Your Generous Pledge!" data-kn="ನಿಮ್ಮ ಉದಾರ ಕೊಡುಗೆಗೆ ಹೃತ್ಪೂರ್ವಕ ಧನ್ಯವಾದಗಳು!">Thank You for Your Generous Pledge!</h2>
+        <p style="color:var(--muted); font-size:.95rem; margin:0;" data-en="Your donation pledge has been recorded with Sanmarga Geleyara Balaga." data-kn="ಸನ್ಮಾರ್ಗ ಗೆಳೆಯರ ಬಳಗದಲ್ಲಿ ನಿಮ್ಮ ದೇಣಿಗೆ ಯಶಸ್ವಿಯಾಗಿ ನೋಂದಾಯಿಸಲ್ಪಟ್ಟಿದೆ.">Your donation pledge has been recorded with Sanmarga Geleyara Balaga.</p>
+        
+        <div>
+          <span class="pledge-id-badge" id="pledgeIdDisplay">PLEDGE: SGB-DON-1029</span>
+        </div>
+
+        <p id="celebrateDetails" style="font-size:1.02rem; color:var(--ink); font-weight:750; background:var(--soft); padding:1rem; border-radius:.8rem; margin:0 0 1.5rem; line-height:1.5;">
+          Pledge details...
+        </p>
+
+        <p style="font-size:.88rem; color:var(--muted); margin:0 0 1.5rem;" data-en="Our coordinator will connect with you on your mobile number to complete the receipt or coordinate pickup. For any enquiry or direct transfer, call/WhatsApp: <strong>9916544848</strong>." data-kn="ರಶೀದಿ ಪೂರ್ಣಗೊಳಿಸಲು ಅಥವಾ ಸಾಮಗ್ರಿ ಸ್ವೀಕಾರಕ್ಕಾಗಿ ನಮ್ಮ ಸ್ವಯಂಸೇವಕರು ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಗೆ ಸಂಪರ್ಕಿಸುತ್ತಾರೆ. ಯಾವುದೇ ವಿಚಾರಣೆಗೆ ಕರೆ/ವಾಟ್ಸಾಪ್ ಮಾಡಿ: <strong>9916544848</strong>.">
+          Our coordinator will connect with you on your mobile number to complete the receipt or coordinate pickup. For any enquiry or direct transfer, call/WhatsApp: <strong>9916544848</strong>.
+        </p>
+
+        <button class="button button--primary" type="button" onclick="closeCelebrateModal()" style="width:100%; font-weight:850;" data-en="Close & Return to Website" data-kn="ಮುಚ್ಚಿ ಮುಖಪುಟಕ್ಕೆ ಮರಳಿ">
+          Close & Return to Website
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer id="siteFooter"></footer>
+  <script src="script.js"></script>
+  <script>
+    let currentDonationType = 'money';
+
+    function selectDonationType(type) {
+      currentDonationType = type;
+      const typeMoneyBtn = document.getElementById('typeMoneyBtn');
+      const typeMaterialsBtn = document.getElementById('typeMaterialsBtn');
+      const moneyFields = document.getElementById('moneyFields');
+      const materialsFields = document.getElementById('materialsFields');
+
+      if (type === 'money') {
+        typeMoneyBtn.classList.add('active');
+        typeMaterialsBtn.classList.remove('active');
+        moneyFields.style.display = 'block';
+        materialsFields.style.display = 'none';
+        document.getElementById('donationAmount').setAttribute('required', 'required');
+      } else {
+        typeMoneyBtn.classList.remove('active');
+        typeMaterialsBtn.classList.add('active');
+        moneyFields.style.display = 'none';
+        materialsFields.style.display = 'block';
+        document.getElementById('donationAmount').removeAttribute('required');
+      }
+
+      // Smooth scroll to form if clicked from top cards
+      const formSec = document.getElementById('donation-form-section');
+      if (formSec) {
+        formSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function setPresetAmount(amt) {
+      document.getElementById('donationAmount').value = amt;
+      document.querySelectorAll('.amount-chip').forEach(chip => {
+        chip.classList.toggle('active', chip.textContent.includes(amt.toLocaleString('en-IN')));
+      });
+    }
+
+    // Form Submission & LocalStorage Sync
+    const donationForm = document.getElementById('donationForm');
+    const donationStatus = document.getElementById('donationStatus');
+    const celebrateModal = document.getElementById('celebrateModal');
+
+    donationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      donationStatus.textContent = '';
+
+      const name = document.getElementById('donorName').value.trim();
+      const phone = document.getElementById('donorPhone').value.trim();
+      const city = document.getElementById('donorCity').value.trim();
+      const email = document.getElementById('donorEmail').value.trim();
+      const notes = document.getElementById('donorNotes').value.trim();
+      const lang = localStorage.getItem('sgb-language') || 'en';
+
+      if (!name || !phone) {
+        donationStatus.textContent = lang === 'kn' ? 'ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.' : 'Please enter your name and phone number.';
+        donationStatus.style.color = 'var(--coral)';
+        return;
+      }
+
+      let donationRecord = null;
+      const pledgeId = 'SGB-DON-' + Math.floor(1000 + Math.random() * 9000);
+      const today = new Date().toISOString().split('T')[0];
+
+      if (currentDonationType === 'money') {
+        const amount = document.getElementById('donationAmount').value;
+        const cause = document.getElementById('moneyCause').value;
+        const mode = document.getElementById('paymentMode').value;
+
+        if (!amount || Number(amount) < 1) {
+          donationStatus.textContent = lang === 'kn' ? 'ದಯವಿಟ್ಟು ಮಾನ್ಯ ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ.' : 'Please enter a valid donation amount.';
+          donationStatus.style.color = 'var(--coral)';
+          return;
+        }
+
+        donationRecord = {
+          id: pledgeId,
+          name: name,
+          contact: `${phone} ${city ? '(' + city + ')' : ''}`,
+          amount: Number(amount),
+          cause: cause,
+          mode: mode,
+          date: today,
+          notes: notes || 'Financial pledge submitted via website'
+        };
+
+        document.getElementById('celebrateDetails').textContent = lang === 'kn'
+          ? `₹${Number(amount).toLocaleString('en-IN')} - ${cause}`
+          : `₹${Number(amount).toLocaleString('en-IN')} pledged towards ${cause}`;
+      } else {
+        const checkedBoxes = Array.from(document.querySelectorAll('input[name="materialCat"]:checked')).map(cb => cb.value);
+        const details = document.getElementById('materialDetails').value.trim();
+        const handover = document.getElementById('handoverPref').value;
+
+        if (checkedBoxes.length === 0 && !details) {
+          donationStatus.textContent = lang === 'kn' ? 'ದಯವಿಟ್ಟು ನೀಡುವ ವಸ್ತುಗಳ ವರ್ಗ ಅಥವಾ ವಿವರ ನಮೂದಿಸಿ.' : 'Please select at least one material category or describe items.';
+          donationStatus.style.color = 'var(--coral)';
+          return;
+        }
+
+        const summaryItems = checkedBoxes.join(', ') + (details ? ': ' + details : '');
+
+        donationRecord = {
+          id: pledgeId,
+          name: name,
+          contact: `${phone} ${city ? '(' + city + ')' : ''}`,
+          amount: `Material: ${checkedBoxes.join(', ') || 'In-Kind Items'}`,
+          cause: 'Materials / In-Kind Drive',
+          mode: handover,
+          date: today,
+          notes: `${summaryItems}. Notes: ${notes || 'None'}`
+        };
+
+        document.getElementById('celebrateDetails').textContent = lang === 'kn'
+          ? `ಸಾಮಗ್ರಿ ಕೊಡುಗೆ: ${summaryItems}`
+          : `Material Donation: ${summaryItems}`;
+      }
+
+      // Persist to MongoDB via REST API
+      try {
+        fetch('/api/donations', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(donationRecord)
+        }).catch((e) => console.log('MongoDB server offline, cached locally:', e));
+      } catch (err) {
+        console.warn('Network error pushing donation to MongoDB:', err);
+      }
+
+      // Save to localStorage as offline mirror
+      try {
+        const stored = JSON.parse(localStorage.getItem('sgb-donations') || '[]');
+        stored.unshift(donationRecord);
+        localStorage.setItem('sgb-donations', JSON.stringify(stored));
+      } catch (err) {
+        console.error('Error saving donation pledge:', err);
+      }
+
+      document.getElementById('pledgeIdDisplay').textContent = `PLEDGE REF: ${pledgeId}`;
+      celebrateModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      donationForm.reset();
+    });
+
+    function closeCelebrateModal() {
+      celebrateModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>

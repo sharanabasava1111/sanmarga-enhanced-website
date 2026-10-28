@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | Sanmarga Geleyara Balaga</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- LOGIN SCREEN (Shown if not logged in) -->
+  <div class="login-wrapper" id="loginScreen">
+    <div class="login-card">
+      <div class="login-header">
+        <img class="admin-brand-logo" src="images/logo.png" alt="Sanmarga Geleyara Balaga Logo">
+        <h1>Sanmarga Admin</h1>
+        <p>Management Portal • Ballari</p>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="adminUsername">Username</label>
+          <input type="text" id="adminUsername" required placeholder="Enter username" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <input type="password" id="adminPassword" required placeholder="Enter password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In to Dashboard →</button>
+      </form>
+
+
+
+      <div class="login-footer">
+        <a href="index.html">← Back to Sanmarga Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD (Shown when logged in) -->
+  <div class="app-layout" id="appLayout" style="display: none;">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <img class="admin-brand-logo" src="images/logo.png" alt="Sanmarga Geleyara Balaga Logo">
+        <div class="brand-info">
+          <h2>Sanmarga</h2>
+          <small>Admin Portal</small>
+        </div>
+        <button class="icon-btn mobile-close" id="mobileCloseBtn" type="button" aria-label="Close menu">✕</button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">Dashboard</span>
+        </button>
+        <button class="nav-item" data-tab="inquiries">
+          <span class="nav-icon">📩</span>
+          <span class="nav-label">Inquiries & Messages</span>
+          <span class="badge" id="unreadBadge">0</span>
+        </button>
+        <button class="nav-item" data-tab="gallery">
+          <span class="nav-icon">🖼️</span>
+          <span class="nav-label">Gallery & Photos</span>
+        </button>
+        <button class="nav-item" data-tab="impact">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">Impact Numbers</span>
+        </button>
+        <button class="nav-item" data-tab="donations">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">Donation Records</span>
+        </button>
+        <button class="nav-item" data-tab="database">
+          <span class="nav-icon">🍃</span>
+          <span class="nav-label">MongoDB Database</span>
+        </button>
+        <button class="nav-item" data-tab="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-label">Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a class="website-link" href="index.html" target="_blank" rel="noopener">
+          <span>🌐 View Live Website</span>
+          <small>Opens in new tab ↗</small>
+        </a>
+        <div class="user-strip">
+          <div class="user-avatar">A</div>
+          <div class="user-meta">
+            <strong id="loggedUserDisplay">Administrator</strong>
+            <small>Ballari Balaga</small>
+          </div>
+          <button class="btn-logout" id="logoutBtn" title="Log out" aria-label="Log out">⏻</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-wrapper">
+      
+      <!-- TOP BAR -->
+      <header class="topbar">
+        <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open sidebar">☰</button>
+        <div class="topbar-title">
+          <h1 id="pageTitle">Dashboard Overview</h1>
+        </div>
+        <div class="topbar-actions">
+          <a class="btn btn-outline btn-sm" href="index.html" target="_blank">View Site ↗</a>
+          <button class="btn btn-danger btn-sm" id="topLogoutBtn">Logout</button>
+        </div>
+      </header>
+
+      <!-- VIEW CONTAINER -->
+      <main class="content-body">
+
+        <!-- 1. DASHBOARD OVERVIEW TAB -->
+        <section class="tab-pane active" id="tab-dashboard">
+          <div class="stats-row">
+            <div class="stat-widget">
+              <div class="stat-icon icon-blue">📩</div>
+              <div class="stat-data">
+                <span class="stat-num" id="dashTotalInquiries">0</span>
+                <span class="stat-title">Total Inquiries</span>
+              </div>
+            </div>
+            <div class="stat-widget">
+              <div class="stat-icon icon-orange">🔔</div>
+              <div class="stat-data">
+                <span class="stat-num" id="dashNewInquiries">0</span>
+                <span class="stat-title">Pending Messages</span>
+              </div>
+            </div>
+            <div class="stat-widget">
+              <div class="stat-icon icon-green">🖼️</div>
+              <div class="stat-data">
+                <span class="stat-num" id="dashPhotoCount">0</span>
+                <span class="stat-title">Gallery Photos</span>
+              </div>
+            </div>
+            <div class="stat-widget">
+              <div class="stat-icon icon-gold">💰</div>
+              <div class="stat-data">
+                <span class="stat-num" id="dashTotalDonations">₹0</span>
+                <span class="stat-title">Recorded Support</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <!-- Recent Inquiries -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Recent Inquiries from Contact Form</h2>
+                <button class="btn btn-outline btn-xs" data-switch-tab="inquiries">View All →</button>
+              </div>
+              <div class="card-body">
+                <div id="dashRecentInquiries" class="recent-list">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Site Overview -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Quick Actions</h2>
+              </div>
+              <div class="card-body">
+                <div class="quick-actions-grid">
+                  <button class="quick-action-btn" data-switch-tab="gallery">
+                    <span class="qa-icon">📷</span>
+                    <strong>Manage Photos</strong>
+                    <small>Add or change scrolling gallery</small>
+                  </button>
+                  <button class="quick-action-btn" data-switch-tab="impact">
+                    <span class="qa-icon">📈</span>
+                    <strong>Update Impact</strong>
+                    <small>Change tree, student, camp stats</small>
+                  </button>
+                  <button class="quick-action-btn" data-switch-tab="inquiries">
+                    <span class="qa-icon">✉️</span>
+                    <strong>View Inquiries</strong>
+                    <small>Review messages & contacts</small>
+                  </button>
+                  <button class="quick-action-btn" data-switch-tab="donations">
+                    <span class="qa-icon">📝</span>
+                    <strong>Record Donation</strong>
+                    <small>Log offline donor contributions</small>
+                  </button>
+                </div>
+                <div class="notice-box mt-3">
+                  <strong>ℹ️ Live Sync Note:</strong>
+                  <p>Changes you save here (gallery photos, impact statistics, etc.) take effect directly on the live website pages!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. INQUIRIES & MESSAGES TAB -->
+        <section class="tab-pane" id="tab-inquiries">
+          <div class="section-toolbar">
+            <div class="filter-group">
+              <button class="filter-btn active" data-filter="all">All (<span id="countAll">0</span>)</button>
+              <button class="filter-btn" data-filter="new">Pending (<span id="countNew">0</span>)</button>
+              <button class="filter-btn" data-filter="responded">Responded (<span id="countResponded">0</span>)</button>
+            </div>
+            <div class="toolbar-actions">
+              <input type="text" id="inquirySearch" placeholder="Search inquiries..." class="search-input">
+              <button class="btn btn-outline btn-sm" id="exportInquiriesBtn">📥 Export CSV</button>
+              <button class="btn btn-secondary btn-sm" id="addSampleInquiryBtn">+ Add Sample</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Contact Info</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiriesTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+            <div id="inquiriesEmptyState" class="empty-state" style="display: none;">
+              <p>No inquiries found matching this filter.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. GALLERY & PHOTO MOMENTS TAB -->
+        <section class="tab-pane" id="tab-gallery">
+          <div class="section-toolbar">
+            <p class="toolbar-desc">Manage the photos that automatically scroll in the <b>"Our work in moments"</b> section on the homepage.</p>
+            <div class="toolbar-actions">
+              <button class="btn btn-primary btn-sm" id="openAddPhotoBtn">+ Add New Photo Card</button>
+              <button class="btn btn-outline btn-sm" id="resetGalleryBtn">↺ Reset to Original 5</button>
+            </div>
+          </div>
+
+          <div class="gallery-admin-grid" id="adminGalleryGrid">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- 4. IMPACT STATS TAB -->
+        <section class="tab-pane" id="tab-impact">
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>Homepage Impact Statistics</h2>
+                <p class="text-muted">These numbers appear in the "Our impact" section on the homepage.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" id="saveImpactBtn">💾 Save Impact Numbers</button>
+            </div>
+            <div class="card-body">
+              <div class="impact-editor-grid" id="impactEditorGrid">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. DONATIONS & PLEDGES TAB -->
+        <section class="tab-pane" id="tab-donations">
+          <div class="section-toolbar">
+            <div class="toolbar-info">
+              <h3>Recorded Donations & Pledges</h3>
+              <p class="text-muted">Keep an offline record of donations received via UPI, cash, or bank transfers.</p>
+            </div>
+            <div class="toolbar-actions">
+              <button class="btn btn-primary btn-sm" id="openAddDonationBtn">+ Record Donation</button>
+              <button class="btn btn-outline btn-sm" id="exportDonationsBtn">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Receipt #</th>
+                    <th>Donor Name</th>
+                    <th>Contact</th>
+                    <th>Cause</th>
+                    <th>Mode</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="donationsTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+            <div id="donationsEmptyState" class="empty-state" style="display: none;">
+              <p>No donations recorded yet.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. MONGODB DATABASE INTEGRATION TAB -->
+        <section class="tab-pane" id="tab-database">
+          <div class="settings-grid">
+            <!-- Database Connection Status & Configuration -->
+            <div class="card">
+              <div class="card-header">
+                <h2>🍃 MongoDB Database Configuration</h2>
+                <span class="badge" id="dbStatusBadge" style="background: #e11d48; color: white;">Checking MongoDB...</span>
+              </div>
+              <div class="card-body">
+                <p>Connect your Sanmarga website directly to <b>MongoDB</b> (Local or MongoDB Atlas Cloud). All contact inquiries, volunteer applications, donation records, gallery moments, and impact stats will be stored permanently in MongoDB collections.</p>
+                
+                <form id="mongoConfigForm">
+                  <div class="form-group">
+                    <label for="mongoUri">MongoDB Connection URI</label>
+                    <input type="text" id="mongoUri" placeholder="mongodb://localhost:27017/sanmarga_balaga or mongodb+srv://..." value="mongodb://localhost:27017/sanmarga_balaga" required>
+                    <small class="text-muted">Use <code>mongodb://localhost:27017/sanmarga_balaga</code> for local DB, or paste your <b>MongoDB Atlas</b> connection string.</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="mongoDbName">Database Name</label>
+                    <input type="text" id="mongoDbName" placeholder="sanmarga_balaga" value="sanmarga_balaga" required>
+                  </div>
+                  <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" id="saveMongoBtn">⚡ Test & Connect to MongoDB</button>
+                    <button type="button" class="btn btn-outline" id="refreshMongoStatusBtn">🔄 Refresh Status</button>
+                  </div>
+                </form>
+
+                <div id="dbConnFeedback" style="margin-top: 1.1rem; padding: 0.85rem; border-radius: 0.6rem; font-size: 0.88rem; display: none;"></div>
+
+                <!-- MongoDB Collection Counters -->
+                <div style="margin-top: 1.5rem; background: var(--bg-alt, #0f172a12); padding: 1rem; border-radius: 0.75rem; border: 1px solid var(--border, #e2e8f0);">
+                  <h4 style="margin: 0 0 0.75rem 0; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span>📊</span> MongoDB Collections & Live Document Counts
+                  </h4>
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; text-align: center;">
+                    <div style="background: white; dark:background: #1e293b; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                      <div style="font-size: 1.25rem; font-weight: 800; color: #108060;" id="mongoCountEnquiries">-</div>
+                      <small style="color: var(--muted); font-size: 0.75rem;">Enquiries</small>
+                    </div>
+                    <div style="background: white; dark:background: #1e293b; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                      <div style="font-size: 1.25rem; font-weight: 800; color: #2563eb;" id="mongoCountVolunteers">-</div>
+                      <small style="color: var(--muted); font-size: 0.75rem;">Volunteers</small>
+                    </div>
+                    <div style="background: white; dark:background: #1e293b; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                      <div style="font-size: 1.25rem; font-weight: 800; color: #f59e0b;" id="mongoCountDonations">-</div>
+                      <small style="color: var(--muted); font-size: 0.75rem;">Donations</small>
+                    </div>
+                    <div style="background: white; dark:background: #1e293b; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                      <div style="font-size: 1.25rem; font-weight: 800; color: #8b5cf6;" id="mongoCountGallery">-</div>
+                      <small style="color: var(--muted); font-size: 0.75rem;">Gallery Items</small>
+                    </div>
+                    <div style="background: white; dark:background: #1e293b; padding: 0.6rem; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
+                      <div style="font-size: 1.25rem; font-weight: 800; color: #ec4899;" id="mongoCountStats">-</div>
+                      <small style="color: var(--muted); font-size: 0.75rem;">Impact Stats</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Database Synchronization & Seeding Tools -->
+            <div class="card">
+              <div class="card-header">
+                <h2>🛠️ MongoDB Tools & Migration</h2>
+              </div>
+              <div class="card-body">
+                <p>Use these one-click tools to migrate browser data or pre-populate MongoDB with initial Sanmarga content:</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                  <div style="padding: 1rem; border: 1px solid var(--border, #e2e8f0); border-radius: 0.75rem; background: var(--card-bg, white);">
+                    <h4 style="margin: 0 0 0.35rem 0; font-size: 0.95rem;">🔄 Sync Local Storage ➔ MongoDB</h4>
+                    <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 0.75rem;">Takes any demo enquiries, donation pledges, and gallery photos stored in this browser and pushes them directly into MongoDB collections.</p>
+                    <button type="button" class="btn btn-secondary btn-sm" id="syncLocalToMongoBtn">📤 Sync Local Data to MongoDB</button>
+                  </div>
+
+                  <div style="padding: 1rem; border: 1px solid var(--border, #e2e8f0); border-radius: 0.75rem; background: var(--card-bg, white);">
+                    <h4 style="margin: 0 0 0.35rem 0; font-size: 0.95rem;">🌱 Seed Default Balaga Data</h4>
+                    <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 0.75rem;">Populates empty MongoDB collections with standard Sanmarga gallery moments, community impact numbers, sample enquiries, and default credentials.</p>
+                    <button type="button" class="btn btn-outline btn-sm" id="seedMongoDataBtn">🌱 Seed Initial Data</button>
+                  </div>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; border-radius: 0.75rem; background: #0b192c; color: #a5f3fc; font-size: 0.8rem; line-height: 1.6;">
+                  <strong style="color: #38bdf8; display: block; margin-bottom: 0.5rem;">💡 How to use MongoDB Atlas (Free Cloud Database):</strong>
+                  1. Create a free account at <a href="https://www.mongodb.com/cloud/atlas" target="_blank" style="color: #67e8f9; text-decoration: underline;">mongodb.com/atlas</a>.<br>
+                  2. Create a free <b>M0 Shared Cluster</b>.<br>
+                  3. In <b>Database Access</b>, add a database user with username and password.<br>
+                  4. In <b>Network Access</b>, click "Add IP Address" & select "Allow Access from Anywhere" (0.0.0.0/0).<br>
+                  5. Click <b>Connect</b> ➔ <b>Drivers (Python)</b>, copy the URI string, replace <code>&lt;password&gt;</code> with your password, and paste above!
+                </div>
+              </div>
+            </div>
+
+            <!-- Google Form Email Dispatch Hub -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Google Form & Email Automation Hub</h2>
+              </div>
+              <div class="card-body">
+                <p>When someone volunteers or submits an enquiry with their email, you can send them the official Google Form link automatically.</p>
+                <div class="form-group">
+                  <label>Official Google Form Link</label>
+                  <input type="text" id="officialGFormLink" value="https://forms.gle/4HqN9W8V3pXQY7Z49" readonly>
+                </div>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline btn-sm" id="testEmailDispatchBtn">✉️ Test Dispatch Google Form to Email</button>
+                  <a class="btn btn-secondary btn-sm" href="https://forms.gle/4HqN9W8V3pXQY7Z49" target="_blank" rel="noopener">Open Google Form ↗</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 7. SETTINGS TAB -->
+        <section class="tab-pane" id="tab-settings">
+          <div class="settings-grid">
+            <!-- Change Password -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Admin Credentials</h2>
+              </div>
+              <div class="card-body">
+                <form id="changePasswordForm">
+                  <div class="form-group">
+                    <label for="currentUsername">Admin Username</label>
+                    <input type="text" id="currentUsername" value="admin">
+                  </div>
+                  <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" placeholder="Enter new password" required minlength="4">
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm new password" required minlength="4">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update Password</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Backup & Reset -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Data Backup & Maintenance</h2>
+              </div>
+              <div class="card-body">
+                <p>Export all inquiries, gallery items, stats and donation records as a backup JSON file.</p>
+                <div class="btn-group mb-4">
+                  <button class="btn btn-outline" id="exportAllDataBtn">📤 Backup All Data (JSON)</button>
+                </div>
+
+                <hr class="divider">
+
+                <h3 class="danger-title">Danger Zone</h3>
+                <p class="text-muted"><small>Resetting will restore original default sample inquiries, original 5 photos, and original stats.</small></p>
+                <button class="btn btn-danger btn-sm" id="factoryResetBtn">↺ Restore System Defaults</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT GALLERY PHOTO -->
+  <div class="modal-backdrop" id="photoModal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="photoModalTitle">Add Gallery Photo</h3>
+        <button class="modal-close" id="closePhotoModalBtn" type="button">✕</button>
+      </div>
+      <form id="photoForm">
+        <input type="hidden" id="photoEditId">
+        <div class="modal-body">
+          
+          <div class="form-group">
+            <label for="photoFile">Upload Photo File (from your computer)</label>
+            <input type="file" id="photoFile" accept="image/*">
+            <small class="text-muted">Or enter an image URL / path below:</small>
+          </div>
+
+          <div class="form-group">
+            <label for="photoSrc">Image URL or Relative Path</label>
+            <input type="text" id="photoSrc" placeholder="e.g. images/save-water-2016.jpg or upload above" required>
+          </div>
+
+          <div class="image-preview-box" id="photoPreviewBox">
+            <img id="photoPreviewImg" src="" alt="Preview">
+            <span id="previewPlaceholder">Photo preview will appear here</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="photoTitleEn">Title (English)</label>
+              <input type="text" id="photoTitleEn" placeholder="e.g. Eye Care Camp" required>
+            </div>
+            <div class="form-group">
+              <label for="photoTitleKn">Title (Kannada)</label>
+              <input type="text" id="photoTitleKn" placeholder="e.g. ಉಚಿತ ನೇತ್ರ ತಪಾಸಣಾ ಶಿಬಿರ" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="photoCategoryEn">Category / Date (English)</label>
+              <input type="text" id="photoCategoryEn" placeholder="e.g. Healthcare • 2026" required>
+            </div>
+            <div class="form-group">
+              <label for="photoCategoryKn">Category / Date (Kannada)</label>
+              <input type="text" id="photoCategoryKn" placeholder="e.g. ಆರೋಗ್ಯ ಸೇವೆ • 2026" required>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelPhotoBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="savePhotoBtn">Save Photo Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: RECORD DONATION -->
+  <div class="modal-backdrop" id="donationModal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>Record Donor Contribution</h3>
+        <button class="modal-close" id="closeDonationModalBtn" type="button">✕</button>
+      </div>
+      <form id="donationForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="donorName">Donor Name</label>
+              <input type="text" id="donorName" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label for="donorContact">Phone or Email</label>
+              <input type="text" id="donorContact" placeholder="+91 ... or email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="donorAmount">Amount (₹ INR)</label>
+              <input type="number" id="donorAmount" placeholder="e.g. 2500" required min="1">
+            </div>
+            <div class="form-group">
+              <label for="donationCause">Cause / Programme</label>
+              <select id="donationCause">
+                <option value="General Community Support">General Support</option>
+                <option value="Education">Education & School Kits</option>
+                <option value="Health">Healthcare & Eye Camps</option>
+                <option value="Environment">Tree Plantation & Environment</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="donationMode">Payment Mode</label>
+              <select id="donationMode">
+                <option value="UPI">UPI / GPay / PhonePe</option>
+                <option value="Bank Transfer">Bank Transfer (NEFT/RTGS)</option>
+                <option value="Cash">Cash Receipt</option>
+                <option value="Cheque">Cheque</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="donationDate">Date</label>
+              <input type="date" id="donationDate" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="donationNotes">Notes / Purpose (Optional)</label>
+            <input type="text" id="donationNotes" placeholder="e.g. In memory of..., specific school, etc.">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelDonationBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Donation Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="admin.js"></script>
+</body>
+</html>
