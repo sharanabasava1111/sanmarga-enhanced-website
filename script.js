@@ -107,36 +107,36 @@ if (footer) {
       <div class="footer-photo-words-container">
         <!-- WORD 1: SANMARGA (8 letters, each filled with authentic community photos) -->
         <div class="footer-photo-word" aria-label="SANMARGA">
-          <span class="photo-letter" style="background-image: url('images/save-water-2016.jpg');" title="S: Save Water Drive 2016">S</span>
-          <span class="photo-letter" style="background-image: url('images/drinking-water-ksrtc-2016.jpg');" title="A: Drinking Water KSRTC Bus Stand">A</span>
-          <span class="photo-letter" style="background-image: url('images/env-planting-nature.jpg');" title="N: Sapling Plantation in Open Ground">N</span>
-          <span class="photo-letter" style="background-image: url('images/air-pollution-awareness-2019.jpg');" title="M: Air Pollution Awareness Campaign">M</span>
-          <span class="photo-letter" style="background-image: url('images/env-watering-care.jpg');" title="A: Sapling Watering Routine">A</span>
-          <span class="photo-letter" style="background-image: url('images/sslc-exam-awareness-sandur.jpg');" title="R: SSLC Exam Guidance Sandur">R</span>
-          <span class="photo-letter" style="background-image: url('images/env-protecting-plants.jpg');" title="G: Tree Protection & Fencing">G</span>
-          <span class="photo-letter" style="background-image: url('images/covid-relief-distribution-2021.jpg');" title="A: COVID-19 Food Relief">A</span>
+          <span class="photo-letter" style="background-image: url('images/save-water-2016-orig.jpg');" title="S: Save Water Drive 2016">S</span>
+          <span class="photo-letter" style="background-image: url('images/air-pollution-awareness-2019-orig.jpg');" title="A: Air Pollution Awareness">A</span>
+          <span class="photo-letter" style="background-image: url('images/env-planting-nature.jpg');" title="N: Sapling Plantation">N</span>
+          <span class="photo-letter" style="background-image: url('images/sslc-exam-awareness-sandur-orig.jpg');" title="M: SSLC Guidance Sandur">M</span>
+          <span class="photo-letter" style="background-image: url('images/contribute-volunteer-team.jpg');" title="A: Volunteer Community">A</span>
+          <span class="photo-letter" style="background-image: url('images/covid-relief-distribution-2021-orig.jpg');" title="R: COVID-19 Food Relief">R</span>
+          <span class="photo-letter" style="background-image: url('images/env-protecting-plants.jpg');" title="G: Tree Protection">G</span>
+          <span class="photo-letter" style="background-image: url('images/drinking-water-ksrtc-2016-orig.jpg');" title="A: Drinking Water for KSRTC">A</span>
         </div>
 
         <!-- WORD 2: GELEYARA (8 letters, each filled with authentic community photos) -->
         <div class="footer-photo-word" aria-label="GELEYARA">
-          <span class="photo-letter" style="background-image: url('images/env-cleanliness-drive.jpg');" title="G: Village Street Cleanliness Drive">G</span>
-          <span class="photo-letter" style="background-image: url('images/env-swachh-surroundings.jpg');" title="E: Youth & Women Cleanliness Team">E</span>
-          <span class="photo-letter" style="background-image: url('images/save-water-2016.jpg');" title="L: Save Water Public Campaign">L</span>
-          <span class="photo-letter" style="background-image: url('images/drinking-water-ksrtc-2016.jpg');" title="E: Summer Drinking Water for Public">E</span>
-          <span class="photo-letter" style="background-image: url('images/env-planting-nature.jpg');" title="Y: Planting Trees at Amar Jawan Memorial">Y</span>
-          <span class="photo-letter" style="background-image: url('images/air-pollution-awareness-2019.jpg');" title="A: Clean Air & Vehicle Emissions">A</span>
-          <span class="photo-letter" style="background-image: url('images/env-watering-care.jpg');" title="R: Community Elders & Volunteers Watering Trees">R</span>
-          <span class="photo-letter" style="background-image: url('images/env-protecting-plants.jpg');" title="A: Nurturing Roadside Plants">A</span>
+          <span class="photo-letter" style="background-image: url('images/env-cleanliness-drive.jpg');" title="G: Cleanliness Drive">G</span>
+          <span class="photo-letter" style="background-image: url('images/hero-home-1.jpg');" title="E: Community Work">E</span>
+          <span class="photo-letter" style="background-image: url('images/env-watering-care.jpg');" title="L: Tree Watering Care">L</span>
+          <span class="photo-letter" style="background-image: url('images/edu-library-facility.jpg');" title="E: Education Library">E</span>
+          <span class="photo-letter" style="background-image: url('images/env-swachh-surroundings.jpg');" title="Y: Swachh Surroundings">Y</span>
+          <span class="photo-letter" style="background-image: url('images/hero-edu-1.jpg');" title="A: Education Drive">A</span>
+          <span class="photo-letter" style="background-image: url('images/donate-food-clothes.jpg');" title="R: Food and Clothes Donation">R</span>
+          <span class="photo-letter" style="background-image: url('images/hero-health-1.jpg');" title="A: Health Camp">A</span>
         </div>
 
         <!-- WORD 3: BALAGA (6 letters, each filled with authentic community photos) -->
         <div class="footer-photo-word" aria-label="BALAGA">
-          <span class="photo-letter" style="background-image: url('images/sslc-exam-awareness-sandur.jpg');" title="B: Student Guidance & Workshops">B</span>
-          <span class="photo-letter" style="background-image: url('images/covid-relief-distribution-2021.jpg');" title="A: Emergency Ration Kits">A</span>
-          <span class="photo-letter" style="background-image: url('images/env-cleanliness-drive.jpg');" title="L: Street Sweeping & Cleanliness">L</span>
-          <span class="photo-letter" style="background-image: url('images/env-swachh-surroundings.jpg');" title="A: Inspiring Clean Neighborhoods">A</span>
-          <span class="photo-letter" style="background-image: url('images/save-water-2016.jpg');" title="G: Water Conservation Drives">G</span>
-          <span class="photo-letter" style="background-image: url('images/env-watering-care.jpg');" title="A: Greening Ballari Since 2015">A</span>
+          <span class="photo-letter" style="background-image: url('images/sslc-exam-awareness-sandur-orig.jpg');" title="B: Student Workshops">B</span>
+          <span class="photo-letter" style="background-image: url('images/air-pollution-awareness-2019-orig.jpg');" title="A: Awareness Campaign">A</span>
+          <span class="photo-letter" style="background-image: url('images/donate-books-materials.jpg');" title="L: Books Donation">L</span>
+          <span class="photo-letter" style="background-image: url('images/covid-relief-distribution-2021-orig.jpg');" title="A: Ration Relief Kits">A</span>
+          <span class="photo-letter" style="background-image: url('images/save-water-2016-orig.jpg');" title="G: Water Conservation">G</span>
+          <span class="photo-letter" style="background-image: url('images/contribute-volunteer-team.jpg');" title="A: Volunteer Team">A</span>
         </div>
       </div>
       <p class="brand-ribbon-sub" data-en="Sanmarga Geleyara Balaga • Near Wisdom Land School, Moka Road, Ballari • Service Since 2015" data-kn="ಸನ್ಮಾರ್ಗ ಗೆಳೆಯರ ಬಳಗ • ವಿಸ್ಡಮ್ ಲ್ಯಾಂಡ್ ಸ್ಕೂಲ್ ಹತ್ತಿರ, ಮೋಕಾ ರಸ್ತೆ, ಬಳ್ಳಾರಿ • 2015 ರಿಂದ ನಿರಂತರ ಸೇವೆ">Sanmarga Geleyara Balaga • Near Wisdom Land School, Moka Road, Ballari • Service Since 2015</p>
