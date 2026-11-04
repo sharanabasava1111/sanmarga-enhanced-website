@@ -127,7 +127,7 @@ if (!localStorage.getItem('sgb-enquiries')) setStorage('sgb-enquiries', DEFAULT_
 if (!localStorage.getItem('sgb-donations')) setStorage('sgb-donations', DEFAULT_DONATIONS);
 
 function getAdminCreds() {
-  return getStorage('sgb-admin-creds', { username: 'admin', password: 'admin@sanmarga' });
+  return getStorage('sgb-admin-creds', { username: 'sanmarga', password: 'Sanmarga@2024' });
 }
 
 // --- TOAST NOTIFICATIONS ---

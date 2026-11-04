@@ -33,9 +33,12 @@
         <button type="submit" class="btn btn-primary btn-block">Sign In to Dashboard →</button>
       </form>
 
+      <div style="text-align:center; margin-top: 1rem; display:flex; justify-content:space-between; align-items:center; font-size:0.88rem;">
+        <a href="setup.html" style="color: var(--primary, #1e6091); text-decoration:none;">🔧 First-time setup</a>
+        <a id="forgotPasswordBtn" href="#" onclick="openForgotPassword(event)" style="color: #c0392b; text-decoration:none;">🔑 Forgot Password?</a>
+      </div>
 
-
-      <div class="login-footer">
+      <div class="login-footer" style="margin-top:1.2rem;">
         <a href="index.html">← Back to Sanmarga Website</a>
       </div>
     </div>
@@ -609,5 +612,15 @@
 
   <!-- SCRIPT -->
   <script src="admin.js"></script>
+  <script>
+    function openForgotPassword(e) {
+      e.preventDefault();
+      const whatsappNumber = '918660028514';
+      const message = encodeURIComponent(
+        'Hello, I am the Sanmarga Geleyara Balaga admin. I forgot my portal password and need a reset. Please help me reset it via the setup page.'
+      );
+      window.open('https://wa.me/' + whatsappNumber + '?text=' + message, '_blank');
+    }
+  </script>
 </body>
 </html>

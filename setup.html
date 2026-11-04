@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Setup | Sanmarga Geleyara Balaga</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0b192c 0%, #1a3a5c 50%, #0b192c 100%);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 1rem;
+    }
+
+    .setup-card {
+      background: #fff;
+      border-radius: 1.25rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .setup-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .setup-header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid #1e6091;
+      margin-bottom: 0.75rem;
+    }
+
+    .setup-header h1 {
+      font-size: 1.5rem;
+      color: #0b192c;
+      font-weight: 700;
+    }
+
+    .setup-header p {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .step-indicator {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d1d5db;
+      transition: background 0.3s;
+    }
+
+    .step-dot.active { background: #1e6091; }
+    .step-dot.done   { background: #22c55e; }
+
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.4rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 0.6rem;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #1e6091;
+      box-shadow: 0 0 0 3px rgba(30,96,145,0.12);
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: 0.7rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-primary { background: #1e6091; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #154e7a; }
+
+    .btn-whatsapp { background: #25D366; color: #fff; }
+    .btn-whatsapp:hover { background: #1daa52; }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 0.6rem;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .alert-info    { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .alert-success { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .alert-error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .alert-warning { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+
+    .strength-bar { height: 4px; border-radius: 2px; background: #e5e7eb; margin-top: 0.4rem; overflow: hidden; }
+    .strength-fill { height: 100%; width: 0; border-radius: 2px; transition: width 0.3s, background 0.3s; }
+
+    .footer-links {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.84rem;
+      color: #6b7280;
+    }
+
+    .footer-links a { color: #1e6091; text-decoration: none; margin: 0 0.5rem; }
+    .footer-links a:hover { text-decoration: underline; }
+
+    .success-icon { font-size: 3.5rem; text-align: center; display: block; margin-bottom: 1rem; }
+
+    .info-box {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 0.6rem;
+      padding: 0.85rem 1rem;
+      font-size: 0.84rem;
+      color: #0c4a6e;
+      margin-bottom: 1.2rem;
+    }
+
+    .info-box strong { display: block; margin-bottom: 0.3rem; }
+
+    @media (max-width: 480px) {
+      .setup-card { padding: 1.75rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="setup-card">
+  <div class="setup-header">
+    <img src="images/logo.png" alt="Sanmarga Logo">
+    <h1>Admin Setup</h1>
+    <p>Sanmarga Geleyara Balaga • Ballari</p>
+  </div>
+
+  <div class="step-indicator">
+    <div class="step-dot active" id="dot1"></div>
+    <div class="step-dot" id="dot2"></div>
+    <div class="step-dot" id="dot3"></div>
+  </div>
+
+  <!-- Step 1: Choose mode -->
+  <div class="step-panel active" id="step1">
+    <div class="info-box">
+      <strong>🛠️ Welcome to Admin Setup</strong>
+      Choose what you want to do:
+    </div>
+
+    <button class="btn btn-primary" onclick="selectMode('new')" style="margin-bottom:0.75rem;">
+      ✨ Set Up New Credentials (First Time)
+    </button>
+    <button class="btn" onclick="selectMode('reset')" style="background:#f3f4f6; color:#374151; margin-bottom:0.75rem;">
+      🔑 Reset Existing Password
+    </button>
+    <button class="btn btn-whatsapp" onclick="openWhatsApp()">
+      📱 Contact Admin via WhatsApp
+    </button>
+  </div>
+
+  <!-- Step 2: Set credentials -->
+  <div class="step-panel" id="step2">
+    <div id="alertBox" class="alert"></div>
+
+    <div id="resetTokenGroup" class="form-group" style="display:none;">
+      <label for="resetToken">Reset Token</label>
+      <input type="text" id="resetToken" placeholder="Enter reset token (from WhatsApp)">
+      <small style="color:#6b7280; font-size:0.78rem;">Contact admin on WhatsApp to get the reset token.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="newUsername">New Username</label>
+      <input type="text" id="newUsername" placeholder="e.g. sanmarga_admin" autocomplete="username">
+    </div>
+
+    <div class="form-group">
+      <label for="newPassword">New Password</label>
+      <input type="password" id="newPassword" placeholder="Minimum 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
+      <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+      <small id="strengthLabel" style="color:#6b7280; font-size:0.78rem;"></small>
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" placeholder="Re-enter password" autocomplete="new-password">
+    </div>
+
+    <button class="btn btn-primary" onclick="submitSetup()" id="submitBtn">Save & Activate Credentials</button>
+    <button class="btn" onclick="goBack()" style="background:#f3f4f6; color:#374151; margin-top:0.6rem;">← Back</button>
+  </div>
+
+  <!-- Step 3: Success -->
+  <div class="step-panel" id="step3">
+    <span class="success-icon">🎉</span>
+    <h2 style="text-align:center; color:#166534; margin-bottom:0.5rem;">Credentials Saved!</h2>
+    <p style="text-align:center; color:#6b7280; margin-bottom:1.5rem; font-size:0.9rem;">
+      Your admin username and password have been updated successfully.
+    </p>
+    <div class="info-box" id="savedCredentials"></div>
+    <a href="admin.html" class="btn btn-primary" style="text-decoration:none; text-align:center; display:block; margin-bottom:0.75rem;">
+      → Open Admin Portal
+    </a>
+    <a href="index.html" class="btn" style="text-decoration:none; text-align:center; display:block; background:#f3f4f6; color:#374151;">
+      ← Back to Website
+    </a>
+  </div>
+
+</div>
+
+<div class="footer-links">
+  <a href="admin.html">← Admin Login</a>
+  <a href="index.html">Main Website</a>
+</div>
+
+<script>
+  let currentMode = 'new'; // 'new' or 'reset'
+
+  function selectMode(mode) {
+    currentMode = mode;
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+    document.getElementById('dot1').classList.remove('active');
+    document.getElementById('dot1').classList.add('done');
+    document.getElementById('dot2').classList.add('active');
+
+    const tokenGroup = document.getElementById('resetTokenGroup');
+    tokenGroup.style.display = mode === 'reset' ? 'block' : 'none';
+
+    const infoBox = document.getElementById('alertBox');
+    if (mode === 'new') {
+      showAlert('info', '✨ Creating first-time admin credentials. These will be your login details for the admin portal.');
+    } else {
+      showAlert('warning', '🔑 To reset your password, enter the reset token sent to WhatsApp <strong>+91 8660028514</strong>.');
+    }
+  }
+
+  function goBack() {
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('dot1').classList.add('active');
+    document.getElementById('dot1').classList.remove('done');
+    document.getElementById('dot2').classList.remove('active');
+    hideAlert();
+  }
+
+  function showAlert(type, msg) {
+    const box = document.getElementById('alertBox');
+    box.className = 'alert alert-' + type;
+    box.innerHTML = msg;
+    box.style.display = 'block';
+  }
+
+  function hideAlert() {
+    const box = document.getElementById('alertBox');
+    box.style.display = 'none';
+  }
+
+  function checkStrength(val) {
+    const fill = document.getElementById('strengthFill');
+    const label = document.getElementById('strengthLabel');
+    let score = 0;
+    if (val.length >= 8) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+
+    const levels = [
+      { w: '25%', c: '#ef4444', t: 'Weak' },
+      { w: '50%', c: '#f97316', t: 'Fair' },
+      { w: '75%', c: '#eab308', t: 'Good' },
+      { w: '100%', c: '#22c55e', t: 'Strong ✓' }
+    ];
+
+    if (val.length === 0) {
+      fill.style.width = '0';
+      label.textContent = '';
+      return;
+    }
+
+    const lvl = levels[Math.min(score - 1, 3)] || levels[0];
+    fill.style.width = lvl.w;
+    fill.style.background = lvl.c;
+    label.textContent = 'Password strength: ' + lvl.t;
+    label.style.color = lvl.c;
+  }
+
+  async function submitSetup() {
+    const username = document.getElementById('newUsername').value.trim();
+    const password = document.getElementById('newPassword').value;
+    const confirm  = document.getElementById('confirmPassword').value;
+    const token    = document.getElementById('resetToken').value.trim();
+
+    if (!username || username.length < 3) {
+      showAlert('error', '❌ Username must be at least 3 characters.'); return;
+    }
+    if (password.length < 8) {
+      showAlert('error', '❌ Password must be at least 8 characters.'); return;
+    }
+    if (password !== confirm) {
+      showAlert('error', '❌ Passwords do not match.'); return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    try {
+      const payload = { username, password };
+      if (currentMode === 'reset') payload.reset_token = token;
+
+      const res = await fetch('/api/admin/setup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        // Show success step
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+        document.getElementById('dot2').classList.remove('active');
+        document.getElementById('dot2').classList.add('done');
+        document.getElementById('dot3').classList.add('active');
+
+        document.getElementById('savedCredentials').innerHTML =
+          `<strong>✅ Your new credentials:</strong>
+           Username: <strong>${escHtml(username)}</strong><br>
+           Password: <strong>${'•'.repeat(password.length)}</strong><br>
+           <small style="color:#0369a1;">Keep these safe. Use them to log in to the admin portal.</small>`;
+      } else {
+        showAlert('error', '❌ ' + (data.error || 'Something went wrong. Please try again.'));
+      }
+    } catch (err) {
+      // Offline fallback: save to localStorage
+      localStorage.setItem('sgb-admin-creds', JSON.stringify({ username, password }));
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step3').classList.add('active');
+      document.getElementById('dot2').classList.remove('active');
+      document.getElementById('dot2').classList.add('done');
+      document.getElementById('dot3').classList.add('active');
+      document.getElementById('savedCredentials').innerHTML =
+        `<strong>✅ Your new credentials (saved locally):</strong>
+         Username: <strong>${escHtml(username)}</strong><br>
+         Password: <strong>${'•'.repeat(password.length)}</strong><br>
+         <small style="color:#92400e;">Server offline — credentials saved in browser. Run server.py for full persistence.</small>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Save & Activate Credentials';
+    }
+  }
+
+  function openWhatsApp() {
+    const msg = encodeURIComponent('Hello, I need the admin reset token for Sanmarga Geleyara Balaga portal.');
+    window.open('https://wa.me/918660028514?text=' + msg, '_blank');
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>

@@ -328,20 +328,62 @@ def admin_login():
         user = db_manager.db.admin_users.find_one({"username": username})
         if user and user.get("password") == password:
             return jsonify({"success": True, "username": username, "source": "mongodb"})
-        if not user and username == "admin" and password == "admin@sanmarga":
-            # Auto seed default admin if not existing
-            db_manager.db.admin_users.update_one(
-                {"username": "admin"},
-                {"$set": {"username": "admin", "password": "admin@sanmarga"}},
-                upsert=True
-            )
-            return jsonify({"success": True, "username": "admin", "source": "mongodb_seeded"})
-
-    # Standby fallback
-    if username == "admin" and password == "admin@sanmarga":
-        return jsonify({"success": True, "username": "admin", "source": "local_default"})
+    else:
+        # Fallback: check localStorage-persisted creds via env
+        env_user = os.getenv("ADMIN_USERNAME", "sanmarga")
+        env_pass = os.getenv("ADMIN_PASSWORD", "Sanmarga@2024")
+        if username == env_user and password == env_pass:
+            return jsonify({"success": True, "username": username, "source": "local_default"})
 
     return jsonify({"success": False, "error": "Invalid username or password"}), 401
+
+
+@app.route('/api/admin/setup', methods=['GET', 'POST'])
+def admin_setup():
+    """First-time setup or password reset endpoint."""
+    if request.method == 'GET':
+        # Check if any admin exists
+        if db_manager.is_connected:
+            count = db_manager.db.admin_users.count_documents({})
+            return jsonify({"needs_setup": count == 0})
+        return jsonify({"needs_setup": True})
+
+    if request.method == 'POST':
+        data = request.get_json(silent=True) or {}
+        new_username = data.get("username", "").strip()
+        new_password = data.get("password", "").strip()
+        reset_token  = data.get("reset_token", "").strip()
+
+        if not new_username or not new_password:
+            return jsonify({"success": False, "error": "Username and password are required"}), 400
+
+        # Allow setup if: no admin exists OR reset_token matches env
+        env_token = os.getenv("RESET_TOKEN", "sanmarga-reset-2024")
+        is_first_run = True
+        if db_manager.is_connected:
+            is_first_run = db_manager.db.admin_users.count_documents({}) == 0
+
+        if not is_first_run and reset_token != env_token:
+            return jsonify({"success": False, "error": "Invalid reset token"}), 403
+
+        if db_manager.is_connected:
+            db_manager.db.admin_users.delete_many({})
+            db_manager.db.admin_users.insert_one({
+                "username": new_username,
+                "password": new_password,
+                "updatedAt": datetime.utcnow().isoformat()
+            })
+
+        # Also persist to .env for offline fallback
+        env_path = os.path.join(BASE_DIR, ".env")
+        try:
+            set_key(env_path, "ADMIN_USERNAME", new_username)
+            set_key(env_path, "ADMIN_PASSWORD", new_password)
+        except Exception as e:
+            print(f"[Setup] Could not write .env: {e}")
+
+        return jsonify({"success": True, "message": "Admin credentials set successfully!"})
+
 
 @app.route('/api/admin/change-creds', methods=['POST'])
 def change_admin_creds():
@@ -359,9 +401,15 @@ def change_admin_creds():
             "password": new_password,
             "updatedAt": datetime.utcnow().isoformat()
         })
-        return jsonify({"success": True, "message": "Admin credentials updated in MongoDB!"})
 
-    return jsonify({"success": True, "message": "Admin credentials updated locally."})
+    env_path = os.path.join(BASE_DIR, ".env")
+    try:
+        set_key(env_path, "ADMIN_USERNAME", new_username)
+        set_key(env_path, "ADMIN_PASSWORD", new_password)
+    except Exception:
+        pass
+
+    return jsonify({"success": True, "message": "Credentials updated successfully!"})
 
 # -------------------------------------------------------------
 # STATIC FILE SERVING
