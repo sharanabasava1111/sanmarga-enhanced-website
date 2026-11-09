@@ -206,7 +206,7 @@ class DatabaseManager:
                     "id": "ENQ-002",
                     "name": "Pooja Patil",
                     "contact": "+91 94480 23456",
-                    "email": "pooja.patil@example.com",
+                    "phone": "+91 94480 23456",
                     "purpose": "Educational Support / SSLC Guidance",
                     "message": "Can you organize an SSLC student guidance session at our government high school in Sandur?",
                     "status": "responded",

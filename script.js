@@ -151,7 +151,12 @@ function applyLanguage(nextLanguage) {
   language = nextLanguage;
   root.lang = language === 'kn' ? 'kn' : 'en';
   document.querySelectorAll('[data-en][data-kn]').forEach((element) => {
-    element.textContent = element.dataset[language];
+    const val = element.dataset[language];
+    if (val.includes('<') && val.includes('>')) {
+      element.innerHTML = val;
+    } else {
+      element.textContent = val;
+    }
   });
   document.querySelectorAll('[data-en-placeholder][data-kn-placeholder]').forEach((element) => {
     element.placeholder = element.dataset[`${language}Placeholder`];

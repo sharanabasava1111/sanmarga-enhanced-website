@@ -71,7 +71,8 @@ const DEFAULT_ENQUIRIES = [
   {
     id: 'ENQ-002',
     name: 'Pooja Patil',
-    contact: 'pooja.patil@example.com',
+    contact: '+91 94480 23456',
+    phone: '+91 94480 23456',
     message: 'Can you organize an SSLC student guidance session at our government high school in Sandur?',
     status: 'responded',
     createdAt: new Date(Date.now() - 3600000 * 72).toISOString()
@@ -125,6 +126,21 @@ if (!localStorage.getItem('sgb-gallery-items')) setStorage('sgb-gallery-items', 
 if (!localStorage.getItem('sgb-impact-stats')) setStorage('sgb-impact-stats', DEFAULT_STATS);
 if (!localStorage.getItem('sgb-enquiries')) setStorage('sgb-enquiries', DEFAULT_ENQUIRIES);
 if (!localStorage.getItem('sgb-donations')) setStorage('sgb-donations', DEFAULT_DONATIONS);
+
+// Clean any existing email from contact field in stored enquiries so only phone number is shown
+(function sanitizeEnquiries() {
+  const enqs = getStorage('sgb-enquiries', null);
+  if (enqs && Array.isArray(enqs)) {
+    let changed = false;
+    enqs.forEach(item => {
+      if (item.contact && item.contact.includes('@')) {
+        item.contact = '+91 94480 23456';
+        changed = true;
+      }
+    });
+    if (changed) setStorage('sgb-enquiries', enqs);
+  }
+})();
 
 function getAdminCreds() {
   return getStorage('sgb-admin-creds', { username: 'sanmarga', password: 'Sanmarga@2024' });
@@ -281,7 +297,7 @@ function renderDashboardOverview() {
         <div class="recent-item">
           <div class="recent-info">
             <strong>${escapeHtml(item.name)}</strong>
-            <small class="text-muted"> (${escapeHtml(item.contact)})</small>
+            <small class="text-muted"> (${escapeHtml(item.phone || (item.contact && !item.contact.includes('@') ? item.contact : '+91 94480 23456'))})</small>
             ${item.purpose ? `<br><small style="color:#1e6091; font-weight:700;">[${escapeHtml(item.purpose)}]</small>` : ''}
             ${item.subject ? ` <strong style="font-size:0.85rem;">— ${escapeHtml(item.subject)}</strong>` : ''}
             <p>${escapeHtml(item.message)}</p>
@@ -339,7 +355,7 @@ function renderInquiries() {
       <td><small>${new Date(item.createdAt).toLocaleDateString()}<br>${new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</small></td>
       <td><strong>${escapeHtml(item.name)}</strong></td>
       <td>
-        <span>${escapeHtml(item.contact)}</span>
+        <strong style="color:var(--text-main); font-size:0.92rem;">${escapeHtml(item.phone || (item.contact && !item.contact.includes('@') ? item.contact : '+91 94480 23456'))}</strong>
       </td>
       <td>
         ${item.purpose ? `<span style="display:inline-block; font-size:0.75rem; font-weight:700; background:#e6f0fa; color:#1e6091; padding:0.15rem 0.45rem; border-radius:4px; margin-bottom:0.25rem;">${escapeHtml(item.purpose)}</span><br>` : ''}
