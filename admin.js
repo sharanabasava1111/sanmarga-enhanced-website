@@ -284,7 +284,8 @@ function renderDashboardOverview() {
   document.querySelector('#dashTotalInquiries').textContent = totalInquiries;
   document.querySelector('#dashNewInquiries').textContent = pendingInquiries;
   document.querySelector('#dashPhotoCount').textContent = gallery.length;
-  document.querySelector('#dashTotalDonations').textContent = '₹' + totalDonationsSum.toLocaleString('en-IN');
+  const dashDonations = document.querySelector('#dashTotalDonations');
+  if (dashDonations) dashDonations.textContent = '₹' + totalDonationsSum.toLocaleString('en-IN');
   document.querySelector('#unreadBadge').textContent = pendingInquiries;
 
   // Render recent 3 inquiries
