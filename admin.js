@@ -383,11 +383,11 @@ function renderInquiries() {
   `).join('');
 }
 
-window.sendGFormLink = function(recipient, name) {
+window.sendGFormLink = function (recipient, name) {
   const gform = 'https://forms.gle/4HqN9W8V3pXQY7Z49';
   const subject = encodeURIComponent('Sanmarga Geleyara Balaga - Official Form Link');
   const body = encodeURIComponent(`Namaskara ${name || ''},\n\nThank you for reaching out to Sanmarga Geleyara Balaga, Ballari.\n\nPlease find the official Google Form link below to submit your details:\n${gform}\n\nLandmark & HQ: Near Wisdom Land School, Moka Road, Ballari, Karnataka - 583103\nHelpline: 9916544848\n\nWith warm regards,\nSanmarga Geleyara Balaga Team`);
-  
+
   if (recipient && recipient.includes('@')) {
     window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, '_blank');
     showToast(`✅ Opening mail draft with Google Form for ${recipient}!`, 'success');
@@ -402,7 +402,7 @@ window.sendGFormLink = function(recipient, name) {
   }
 };
 
-window.toggleInquiryStatus = async function(id) {
+window.toggleInquiryStatus = async function (id) {
   const inquiries = getStorage('sgb-enquiries', []);
   const item = inquiries.find((i) => i.id === id);
   if (item) {
@@ -423,7 +423,7 @@ window.toggleInquiryStatus = async function(id) {
   }
 };
 
-window.deleteInquiry = async function(id) {
+window.deleteInquiry = async function (id) {
   if (!confirm('Are you sure you want to delete this message?')) return;
   let inquiries = getStorage('sgb-enquiries', []);
   inquiries = inquiries.filter((i) => i.id !== id);
@@ -514,7 +514,7 @@ function renderGalleryAdmin() {
   `).join('');
 }
 
-window.moveGalleryPhoto = function(index, dir) {
+window.moveGalleryPhoto = function (index, dir) {
   const gallery = getStorage('sgb-gallery-items', DEFAULT_GALLERY);
   const targetIndex = index + dir;
   if (targetIndex < 0 || targetIndex >= gallery.length) return;
@@ -526,7 +526,7 @@ window.moveGalleryPhoto = function(index, dir) {
   renderGalleryAdmin();
 };
 
-window.deleteGalleryPhoto = async function(id) {
+window.deleteGalleryPhoto = async function (id) {
   if (!confirm('Are you sure you want to remove this photo from the scrolling gallery?')) return;
   let gallery = getStorage('sgb-gallery-items', DEFAULT_GALLERY);
   gallery = gallery.filter((i) => i.id !== id);
@@ -582,7 +582,7 @@ document.querySelector('#openAddPhotoBtn')?.addEventListener('click', () => {
   photoModal.style.display = 'grid';
 });
 
-window.openEditPhotoModal = function(id) {
+window.openEditPhotoModal = function (id) {
   const gallery = getStorage('sgb-gallery-items', DEFAULT_GALLERY);
   const item = gallery.find((g) => g.id === id);
   if (!item) return;
@@ -653,7 +653,7 @@ photoForm?.addEventListener('submit', (e) => {
         body: JSON.stringify(payload)
       }).catch((e) => console.log('Backend offline, cached locally:', e));
     }
-  } catch (err) {}
+  } catch (err) { }
 });
 
 document.querySelector('#resetGalleryBtn')?.addEventListener('click', () => {
@@ -730,7 +730,7 @@ function renderDonations() {
   `).join('');
 }
 
-window.deleteDonation = function(id) {
+window.deleteDonation = function (id) {
   if (!confirm('Remove this donation record?')) return;
   let donations = getStorage('sgb-donations', DEFAULT_DONATIONS);
   donations = donations.filter((d) => d.id !== id);
