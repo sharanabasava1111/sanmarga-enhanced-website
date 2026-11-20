@@ -6,7 +6,7 @@ if (header) {
   header.className = 'site-header';
   header.innerHTML = `
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Sanmarga Geleyara Balaga home"><img class="brand-logo-img" src="images/logo.png" alt="Sanmarga Geleyara Balaga Official Emblem"><span class="brand-text" data-en="Sanmarga<br>Geleyara Balaga<small>Ballari</small>" data-kn="ಸನ್ಮಾರ್ಗ<br>ಗೆಳೆಯರ ಬಳಗ<small>ಬಳ್ಳಾರಿ</small>">Sanmarga<br>Geleyara Balaga<small>Ballari</small></span></a>
+      <a class="brand" href="index.html" aria-label="Sanmarga Geleyara Balaga home"><img class="brand-logo-img" src="images/logo.png" alt="Sanmarga Geleyara Balaga Official Emblem"><span class="brand-text"><span class="brand-title"><span data-en="Sanmarga" data-kn="ಸನ್ಮಾರ್ಗ">Sanmarga</span><br><span data-en="Geleyara Balaga" data-kn="ಗೆಳೆಯರ ಬಳಗ">Geleyara Balaga</span></span><small data-en="Ballari" data-kn="ಬಳ್ಳಾರಿ">Ballari</small></span></a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a class="${page === 'home' ? 'active' : ''}" href="index.html" data-en="Home" data-kn="ಮುಖಪುಟ">Home</a>
         
@@ -96,7 +96,7 @@ if (footer) {
   footer.className = 'site-footer';
   footer.innerHTML = `
     <div class="container footer-grid">
-      <div><a class="brand" href="index.html"><img class="brand-logo-img" src="images/logo.png" alt="Sanmarga Geleyara Balaga Official Emblem"><span class="brand-text" data-en="Sanmarga Geleyara Balaga<small>Ballari</small>" data-kn="ಸನ್ಮಾರ್ಗ ಗೆಳೆಯರ ಬಳಗ<small>ಬಳ್ಳಾರಿ</small>">Sanmarga Geleyara Balaga<small>Ballari</small></span></a><p class="footer-text" data-en="Thank you for standing with a community that believes every caring action counts." data-kn="ಪ್ರತಿ ಕಾಳಜಿಯ ಕಾರ್ಯಕ್ಕೂ ಮಹತ್ವವಿದೆ ಎನ್ನುವ ಸಮುದಾಯದೊಂದಿಗೆ ನಿಂತಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.">Thank you for standing with a community that believes every caring action counts.</p></div>
+      <div><a class="brand" href="index.html"><img class="brand-logo-img" src="images/logo.png" alt="Sanmarga Geleyara Balaga Official Emblem"><span class="brand-text"><span data-en="Sanmarga Geleyara Balaga" data-kn="ಸನ್ಮಾರ್ಗ ಗೆಳೆಯರ ಬಳಗ">Sanmarga Geleyara Balaga</span><small data-en="Ballari" data-kn="ಬಳ್ಳಾರಿ">Ballari</small></span></a><p class="footer-text" data-en="Thank you for standing with a community that believes every caring action counts." data-kn="ಪ್ರತಿ ಕಾಳಜಿಯ ಕಾರ್ಯಕ್ಕೂ ಮಹತ್ವವಿದೆ ಎನ್ನುವ ಸಮುದಾಯದೊಂದಿಗೆ ನಿಂತಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು.">Thank you for standing with a community that believes every caring action counts.</p></div>
       <div class="footer-col"><h3 data-en="Explore" data-kn="ಅನ್ವೇಷಿಸಿ">Explore</h3><a href="about.html" data-en="About us" data-kn="ನಮ್ಮ ಬಗ್ಗೆ">About us</a><a href="vision-mission.html" data-en="Vision & Mission" data-kn="ದೃಷ್ಟಿ ಮತ್ತು ಧ್ಯೇಯ">Vision & Mission</a><a href="education.html" data-en="Education" data-kn="ಶಿಕ್ಷಣ">Education</a><a href="health.html" data-en="Health" data-kn="ಆರೋಗ್ಯ">Health</a><a href="environment.html" data-en="Environment" data-kn="ಪರಿಸರ">Environment</a><a href="moments.html" data-en="Work in Moments" data-kn="ಕಾರ್ಯದ ಕ್ಷಣಗಳು">Work in Moments</a></div>
       <div class="footer-col"><h3 data-en="Get involved" data-kn="ಸೇರಿಕೊಳ್ಳಿ">Get involved</h3><a href="work-with-us.html" data-en="Work with us" data-kn="ನಮ್ಮೊಂದಿಗೆ ಕೆಲಸ ಮಾಡಿ">Work with us</a><a href="awareness.html" data-en="Public awareness" data-kn="ಸಾರ್ವಜನಿಕ ಜಾಗೃತಿ">Public awareness</a><a href="contact.html" data-en="Contact Us & FAQs" data-kn="ಸಂಪರ್ಕಿಸಿ & ಪ್ರಶ್ನೋತ್ತರಗಳು">Contact Us & FAQs</a><a href="donate.html" data-en="Donate" data-kn="ದೇಣಿಗೆ ನೀಡಿ">Donate</a></div>
       <div class="footer-col"><h3 data-en="Connect" data-kn="ಸಂಪರ್ಕ">Connect</h3><a class="instagram-link" href="https://www.instagram.com/sanmarga_geleyara_balaga?obrf=cXNydWpjbjBoNXZ5" target="_blank" rel="noopener noreferrer" aria-label="Visit Sanmarga Geleyara Balaga on Instagram"><svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg><span data-en="Follow on Instagram" data-kn="ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್‌ನಲ್ಲಿ ಫಾಲೋ ಮಾಡಿ">Follow on Instagram</span></a><div class="footer-enquiry-box"><span class="footer-enquiry-label" data-en="Have an enquiry or issue?" data-kn="ವಿಚಾರಣೆ ಅಥವಾ ಸಮಸ್ಯೆ ಇದೆಯೇ?">Have an enquiry or issue?</span><a class="footer-contact-btn" href="contact.html" data-en="Contact Us & FAQs →" data-kn="ಸಂಪರ್ಕಿಸಿ ಮತ್ತು ಪ್ರಶ್ನೋತ್ತರಗಳು →">Contact Us & FAQs →</a></div></div>
@@ -178,24 +178,28 @@ function applyLanguage(nextLanguage) {
   root.lang = language === 'kn' ? 'kn' : 'en';
   document.querySelectorAll('[data-en][data-kn]').forEach((element) => {
     const val = element.dataset[language];
-    if (val.includes('<') && val.includes('>')) {
-      element.innerHTML = val;
-    } else {
-      element.textContent = val;
+    if (val) {
+      if (val.includes('<') && val.includes('>')) {
+        element.innerHTML = val;
+      } else {
+        element.textContent = val;
+      }
     }
   });
   document.querySelectorAll('[data-en-placeholder][data-kn-placeholder]').forEach((element) => {
-    element.placeholder = element.dataset[`${language}Placeholder`];
+    if (element.dataset[`${language}Placeholder`]) {
+      element.placeholder = element.dataset[`${language}Placeholder`];
+    }
   });
   const ribbonEn = document.querySelector('.ribbon-en');
   const ribbonKn = document.querySelector('.ribbon-kn');
   if (ribbonEn && ribbonKn) {
     if (language === 'kn') {
-      ribbonEn.style.display = 'none';
-      ribbonKn.style.display = 'flex';
+      ribbonEn.style.setProperty('display', 'none', 'important');
+      ribbonKn.style.setProperty('display', 'flex', 'important');
     } else {
-      ribbonEn.style.display = 'flex';
-      ribbonKn.style.display = 'none';
+      ribbonEn.style.setProperty('display', 'flex', 'important');
+      ribbonKn.style.setProperty('display', 'none', 'important');
     }
   }
   const languageButton = document.querySelector('#languageButton');
