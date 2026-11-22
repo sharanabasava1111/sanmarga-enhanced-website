@@ -411,6 +411,14 @@ def change_admin_creds():
 
     return jsonify({"success": True, "message": "Credentials updated successfully!"})
 
+@app.after_request
+def add_cache_headers(response):
+    if request.path.endswith(('.html', '.js', '.css')) or request.path == '/':
+        response.headers["Cache-Control"] = "no-cache, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
 # -------------------------------------------------------------
 # STATIC FILE SERVING
 # -------------------------------------------------------------

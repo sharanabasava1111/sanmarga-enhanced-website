@@ -175,6 +175,9 @@ let language = localStorage.getItem('sgb-language') || 'en';
 
 function applyLanguage(nextLanguage) {
   language = nextLanguage;
+  try {
+    localStorage.setItem('sgb-language', language);
+  } catch (e) {}
   root.lang = language === 'kn' ? 'kn' : 'en';
   document.querySelectorAll('[data-en][data-kn]').forEach((element) => {
     const val = element.dataset[language];
